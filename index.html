@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupyter Gemini Assistant - Your Intelligent Coding Companion for VSCode</title>
+    <meta name="description"
+        content="Simplify debugging in Jupyter notebooks with Jupyter Gemini Assistant, your smart coding companion for VSCode. Get insightful error analysis and instant solutions.">
+    <meta name="keywords"
+        content="Jupyter Notebook, VSCode Extension, Error Analysis, Debugging, Smart Assistant, Coding Companion, Python, Data Science">
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --border-radius: 0.375rem;
+            --border-width: max(1px, 0.0625rem);
+            --border-color: #d1d9e0;
+            --github-color: #24292e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--secondary-color);
+        }
+
+        header,
+        main,
+        footer {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--primary-color);
+        }
+
+        .cta-button,
+        .github-button {
+            display: inline-block;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+        }
+
+        .cta-button:hover {
+            background-color: #004c99;
+        }
+
+        .github-button {
+            background-color: var(--github-color);
+        }
+
+        .github-button:hover {
+            background-color: #1a1e22;
+        }
+
+        .feature {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            border: var(--border-width) solid var(--border-color);
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--border-radius);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            background-color: #004c99;
+            transform: translateY(-2px);
+        }
+    </style>
+    <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "Jupyter Gemini Assistant",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "VSCode",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "description": "Your intelligent coding companion for Jupyter notebooks in VSCode. Simplify debugging with insightful error analysis and instant solutions.",
+              "softwareVersion": "1.0",
+              "fileSize": "5MB",
+              "downloadUrl": "https://marketplace.visualstudio.com/items?itemName=whoru.jupyter-gemini-assistant",
+              "author": {
+                "@type": "Person",
+                "name": "IDKNWHORU"
+              },
+              "potentialAction": {
+                "@type": "DownloadAction",
+                "target": "https://marketplace.visualstudio.com/items?itemName=whoru.jupyter-gemini-assistant"
+              }
+            }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Jupyter Gemini Assistant</h1>
+        <p>Your intelligent coding companion for Jupyter notebooks in VSCode</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Elevate Your Coding Experience with Smart Assistance</h2>
+            <p>Jupyter Gemini Assistant is your intelligent companion in VSCode, leveraging advanced technology to
+                analyze and explain errors in your Jupyter notebooks. It's like having a seasoned developer by your
+                side, making debugging effortless for coders of all levels.</p>
+            <a href="https://marketplace.visualstudio.com/items?itemName=whoru.jupyter-gemini-assistant"
+                class="cta-button">Install Jupyter Gemini Assistant</a>
+        </section>
+
+        <section>
+            <h2>See Your Intelligent Assistant In Action</h2>
+            <div class="video-container">
+                <video
+                    src="https://private-user-images.githubusercontent.com/49608580/363697021-48ae1fe2-c232-4f7d-9dd2-facc8900f776.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjUzMjI2MDEsIm5iZiI6MTcyNTMyMjMwMSwicGF0aCI6Ii80OTYwODU4MC8zNjM2OTcwMjEtNDhhZTFmZTItYzIzMi00ZjdkLTlkZDItZmFjYzg5MDBmNzc2Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA5MDMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwOTAzVDAwMTE0MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWUzNDBkOGUwNjAxNjZjZTA3YWUyNmUyZmM4YWMxNWZlYjlhZjRlNWNjYjVjODZhZGMwNjI5YmI4NjYyZmYwOTEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.eJiG5xp0YG-p6kNYcMZRiCncS31jutsBDJvyVg7zmno"
+                    controls muted class="d-block rounded-bottom-2 border-top width-fit"
+                    style="max-height:640px; min-height: 200px">
+                </video>
+            </div>
+        </section>
+
+        <section>
+            <h2>How Your Smart Companion Enhances Your Workflow</h2>
+            <div class="feature">
+                <h3>Intuitive Error Analysis</h3>
+                <p>Get insightful explanations of errors and tailored solution suggestions, all with just one click.</p>
+            </div>
+            <div class="feature">
+                <h3>Seamless VSCode Integration</h3>
+                <p>Your coding companion works right within your VSCode environment, always ready to assist when you
+                    need it most.</p>
+            </div>
+            <div class="feature">
+                <h3>Continuous Learning Support</h3>
+                <p>Receive beginner-friendly explanations that help you understand the 'why' behind the errors,
+                    accelerating your coding skills growth.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Your Intelligent Assistant at Work: A Step-by-Step Guide</h2>
+            <ol>
+                <li>Run your Jupyter notebook code in VSCode as usual.</li>
+                <li>When an error occurs, your intelligent assistant activates, presenting an 'Analyze' button for
+                    immediate help.</li>
+                <li>Click to receive a detailed analysis and actionable solution suggestions, powered by advanced Gemini
+                    technology.</li>
+            </ol>
+            <a href="https://marketplace.visualstudio.com/items?itemName=whoru.jupyter-gemini-assistant"
+                class="cta-button">Download Now and Start Debugging Smarter</a>
+        </section>
+
+        <section>
+            <h2>Ready to Transform Your Coding Experience?</h2>
+            <p>Enhance your Jupyter notebook workflow with a smart, always-ready coding companion. Perfect for data
+                scientists, machine learning enthusiasts, and Python developers at any skill level.</p>
+            <a href="https://marketplace.visualstudio.com/items?itemName=whoru.jupyter-gemini-assistant"
+                class="cta-button">Get Jupyter Gemini Assistant Free</a>
+        </section>
+
+        <section>
+            <h2>Open Source Collaboration</h2>
+            <p>Jupyter Gemini Assistant is an open-source project. We welcome contributions, feedback, and feature
+                requests from the community.</p>
+            <a href="https://github.com/IDKNWHORU/jupyter-gemini-assistant" class="github-button">Contribute on
+                GitHub</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Jupyter Gemini Assistant. All rights reserved.</p>
+        <a href="https://github.com/IDKNWHORU/jupyter-gemini-assistant" class="github-button">View Source Code</a>
+    </footer>
+</body>
+
+
+</html>
