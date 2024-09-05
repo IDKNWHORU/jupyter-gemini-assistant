@@ -31,6 +31,11 @@ Here's a visual guide to help you find the extension:
 
 ## Release Notes
 
+### 0.1.2
+
+- Fixed a bug in MarkdownContentProvider.js where 'vscode' module was not imported
+- Resolved issues related to undefined vscode object
+
 ### 0.1.1
 
 - Changed AI analysis results output to a Markdown preview in the side panel

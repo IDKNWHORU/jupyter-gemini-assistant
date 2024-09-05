@@ -1,3 +1,5 @@
+const vscode = require('vscode');
+
 module.exports = class {
     constructor() {
         this._onDidChange = new vscode.EventEmitter();
