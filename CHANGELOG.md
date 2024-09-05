@@ -4,6 +4,15 @@ All notable changes to the "Jupyter Gemini Assistant" extension will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2024-09-05
+### Changed
+- Modified the output method for AI analysis results from outputChannel to a Markdown preview in the side panel
+  - Improved user experience, allowing for easier viewing and interaction with analysis results
+
+### Added
+- Screenshot of the new side panel Markdown preview interface
+  ![New Side Panel Interface](https://github.com/user-attachments/assets/5445d853-490c-469f-a060-5f6919d071e4)
+
 ## [0.1.0] - 2024-09-02
 ### Added
 - New `ErrorAnalyzer` class for improved error analysis logic

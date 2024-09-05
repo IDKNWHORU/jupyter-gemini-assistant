@@ -6,21 +6,14 @@ An assistant designed to help beginners easily understand and resolve errors occ
 
 When an error occurs after running an ipynb file, the Gemini assistant provides insights into the cause of the error and suggests solutions.
 
-### Version 0.0.1 Operation
-
-https://github.com/IDKNWHORU/gemini-server/assets/49608580/56691d06-1faa-494d-b15a-170b80ea2789
-
-### Version 0.1.0 Operation
-
-In the new version 0.1.0, the program's operation has been improved. You can see the new features in the video below:
-
-https://github.com/user-attachments/assets/48ae1fe2-c232-4f7d-9dd2-facc8900f776
+https://github.com/user-attachments/assets/dd20e11c-8fa4-49bd-ba98-2473f5563d4b
 
 ## How to Use
 
 1. Run your code in Jupyter Notebook.
 2. If an error occurs, click the `analyse` button that appears in the cell.
 3. The Gemini Assistant will analyze the error and suggest solutions.
+4. View the detailed analysis in the new side panel Markdown preview.
 
 ## Installation
 
@@ -37,6 +30,11 @@ Here's a visual guide to help you find the extension:
 ![VSCode Extension Installation](https://github.com/user-attachments/assets/967e3485-3ffe-4cb3-8a8e-c7cc7cb790b3)
 
 ## Release Notes
+
+### 0.1.1
+
+- Changed AI analysis results output to a Markdown preview in the side panel
+- Improved user experience for viewing and interacting with analysis results
 
 ### 0.1.0
 
