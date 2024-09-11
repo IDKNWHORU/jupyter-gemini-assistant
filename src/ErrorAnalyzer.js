@@ -1,4 +1,13 @@
 module.exports = class {
+    /**
+     * Analyzes the given error output and code to generate an explanation.
+     * 
+     * @async
+     * @param {string} errorOutput - The error output string to analyze
+     * @param {string} code - The code string where the error occurred
+     * @returns {Promise<string>} The text result of the error analysis
+     * @throws {Error} If the HTTP request fails or an error occurs during response processing
+     */
     static async analyzeError(errorOutput, code) {
         try {
             const response = await fetch("https://gemini-server-kappa.vercel.app/generate", {
