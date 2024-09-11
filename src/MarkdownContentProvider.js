@@ -10,13 +10,32 @@ module.exports = class {
         return this._onDidChange.event;
     }
 
+    /**
+     * Sets the latest analysis result and notifies listeners of the change.
+     * 
+     * @param {string} analysis - The latest analysis result to be set.
+     * @returns {void}
+     * 
+     * This method updates the internal _latestAnalysis property with the new analysis result
+     * and fires an event to notify listeners that the content has changed. The event includes
+     * a URI that points to the markdown preview of the error analysis.
+     */
     setLatestAnalysis(analysis) {
         this._latestAnalysis = analysis;
         // 콘텐츠가 변경되었음을 알립니다
         this._onDidChange.fire(vscode.Uri.parse('markdown-preview:error-analysis.md'));
     }
 
-    provideTextDocumentContent(uri) {
+    /**
+     * Provides the text document content for the markdown preview.
+     * 
+     * @returns {string} The markdown content to be displayed.
+     * 
+     * This method generates and returns the markdown content for the preview. If there's a latest
+     * analysis result available, it returns a formatted markdown string including the analysis
+     * result and a timestamp. If no analysis result is available, it returns a waiting message.
+     */
+    provideTextDocumentContent() {
         if (this._latestAnalysis) {
             return `# Jupyter Gemini Assistant
 
