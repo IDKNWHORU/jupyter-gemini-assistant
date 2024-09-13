@@ -15,6 +15,7 @@
     "Notebooks",
     "AI"
   ],
+  "icon": "icon.png",
   "activationEvents": [
     "onLanguage:jupyter",
     "onNotebook:jupyter-notebook"
