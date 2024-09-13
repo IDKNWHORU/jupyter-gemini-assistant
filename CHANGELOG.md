@@ -4,6 +4,23 @@ All notable changes to the "Jupyter Gemini Assistant" extension will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2024-09-13
+### Added
+- New command to select language for Jupyter Gemini assistant
+- Configuration option for language selection (English or Korean)
+- Improved error analysis with `ErrorAnalyzer` class
+- New `MarkdownContentProvider` for displaying analysis results
+- Comprehensive test suite for the extension
+
+### Changed
+- Updated extension activation events to include Jupyter notebooks
+- Refactored `extension.js` to use new classes and improve modularity
+- Enhanced error handling and user feedback
+
+### Improved
+- Overall code structure and error handling
+- User experience with language selection and error analysis display
+
 ## [0.1.2] - 2024-09-05
 ### Fixed
 - Bug in MarkdownContentProvider.js where 'vscode' module was not imported

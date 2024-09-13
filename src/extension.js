@@ -7,6 +7,22 @@ function activate(context) {
     const cellStatusProvider = new CellStatusBarItemProvider();
     const mdProvider = new MarkdownContentProvider();
 
+    let config = vscode.workspace.getConfiguration("jupyterGeminiAssistant");
+    let selectedLanguage = config.get("language");
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('jupyter.gemini.selectLanguage', async () => {
+            const language = await vscode.window.showQuickPick(["한국어", "English"], {
+                placeHolder: "Select a language"
+            });
+            if (language) {
+                selectedLanguage = language;
+                await config.update('language', language, vscode.ConfigurationTarget.Global);
+                vscode.window.showInformationMessage(`Language set to ${language}`);
+            }
+        })
+    );
+
     context.subscriptions.push(
         vscode.notebooks.registerNotebookCellStatusBarItemProvider('jupyter-notebook', cellStatusProvider)
     );
@@ -26,7 +42,7 @@ function activate(context) {
             const cellCode = cell.document.getText();
 
             try {
-                const analysis = await ErrorAnalyzer.analyzeError(errorTraceback, cellCode);
+                const analysis = await ErrorAnalyzer.analyzeError(errorTraceback, cellCode, selectedLanguage);
 
                 mdProvider.setLatestAnalysis(analysis);
 
@@ -43,6 +59,14 @@ function activate(context) {
                 }
             } catch (error) {
                 vscode.window.showErrorMessage(`Error analyzing error: ${error.message}`);
+            }
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.workspace.onDidChangeConfiguration(event => {
+            if (event.affectsConfiguration('jupyterGeminiAssistant.language')) {
+                selectedLanguage = vscode.workspace.getConfiguration('jupyterGeminiAssistant').get('language');
             }
         })
     );

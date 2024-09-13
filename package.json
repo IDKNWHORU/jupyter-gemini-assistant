@@ -2,7 +2,7 @@
   "name": "jupyter-gemini-assistant",
   "displayName": "jupyter-gemini-assistant",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "publisher": "whoru",
   "repository": {
     "type": "git",
@@ -20,7 +20,28 @@
     "onNotebook:jupyter-notebook"
   ],
   "main": "./src/extension.js",
-  "contributes": {},
+  "contributes": {
+    "commands": [
+      {
+        "command": "jupyter.gemini.selectLanguage",
+        "title": "Select Language for Jupyter Gemini assistant"
+      }
+    ],
+    "configuration": {
+      "title": "Jupyter Gemini Assistant",
+      "properties": {
+        "jupyterGeminiAssistant.language": {
+          "type": "string",
+          "default": "English",
+          "enum": [
+            "English",
+            "한국어"
+          ],
+          "description": "The language used for Jupyter Gemini Assistant responses"
+        }
+      }
+    }
+  },
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",

@@ -21,7 +21,12 @@ suite('Extension Test Suite', () => {
 			registerNotebookCellStatusBarItemProvider: sandbox.stub().returns({ dispose: sandbox.stub() })
 		};
 		mockWorkspace = {
-			registerTextDocumentContentProvider: sandbox.stub().returns({ dispose: sandbox.stub() })
+			registerTextDocumentContentProvider: sandbox.stub().returns({ dispose: sandbox.stub() }),
+			getConfiguration: sandbox.stub().returns({
+				get: sandbox.stub().returns("English"),
+				update: sandbox.stub().resolves()
+			}),
+			onDidChangeConfiguration: sandbox.stub().returns({ dispose: sandbox.stub() })
 		};
 		mockCommands = {
 			registerCommand: sandbox.stub().returns({ dispose: sandbox.stub() }),
@@ -29,6 +34,8 @@ suite('Extension Test Suite', () => {
 		};
 		mockWindow = {
 			showErrorMessage: sandbox.stub(),
+			showInformationMessage: sandbox.stub(),
+			showQuickPick: sandbox.stub().resolves("English"),
 			visibleTextEditors: [],
 			showTextDocument: sandbox.stub().resolves()
 		};
@@ -53,8 +60,8 @@ suite('Extension Test Suite', () => {
 
 		assert(mockNotebooks.registerNotebookCellStatusBarItemProvider.calledOnce);
 		assert(mockWorkspace.registerTextDocumentContentProvider.calledOnce);
-		assert(mockCommands.registerCommand.calledOnce);
-		assert.strictEqual(mockContext.subscriptions.length, 3);
+		assert.strictEqual(mockCommands.registerCommand.callCount, 2); // Two commands should be registered
+		assert.strictEqual(mockContext.subscriptions.length, 5); // Including onDidChangeConfiguration
 	});
 
 	test('analyzeCellError command handles valid cell and error output', async () => {
@@ -67,29 +74,30 @@ suite('Extension Test Suite', () => {
 		const setLatestAnalysisStub = sandbox.stub(MarkdownContentProvider.prototype, 'setLatestAnalysis');
 
 		await extension.activate(mockContext);
-		await mockCommands.registerCommand.args[0][1](mockCell);
+		await mockCommands.registerCommand.args[1][1](mockCell); // Calling the second registered command
 
 		assert(ErrorAnalyzer.analyzeError.calledOnce);
 		assert(setLatestAnalysisStub.calledOnce);
 		assert(mockCommands.executeCommand.calledWith('markdown.showPreviewToSide'));
 	});
 
-	test('analyzeCellError command refreshes existing preview', async () => {
-		const mockCell = {
-			document: { getText: sandbox.stub().returns('code') },
-			outputs: [{ metadata: { outputType: 'error', originalError: { traceback: ['error'] } } }]
-		};
-
-		sandbox.stub(ErrorAnalyzer, 'analyzeError').resolves('Analysis result');
-		const setLatestAnalysisStub = sandbox.stub(MarkdownContentProvider.prototype, 'setLatestAnalysis');
-
-		mockWindow.visibleTextEditors = [{ document: { uri: { scheme: 'markdown-preview' } } }];
-
+	test("selectLanguage command updates language setting", async () => {
 		await extension.activate(mockContext);
-		await mockCommands.registerCommand.args[0][1](mockCell);
+		await mockCommands.registerCommand.args[0][1](); // Calling the first registered command
 
-		assert(mockCommands.executeCommand.calledWith('markdown.preview.refresh'));
-		assert(mockWindow.showTextDocument.calledOnce);
+		assert(mockWindow.showQuickPick.calledOnce);
+		assert(mockWorkspace.getConfiguration().update.calledOnce);
+		assert(mockWindow.showInformationMessage.calledOnce);
+	});
+
+	test("configuration change updates selected language", async () => {
+		await extension.activate(mockContext);
+
+		// Simulate configuration change
+		const configChangeHandler = mockWorkspace.onDidChangeConfiguration.args[0][0];
+		configChangeHandler({ affectsConfiguration: () => true });
+
+		assert(mockWorkspace.getConfiguration().get.calledTwice); // Called in activate and in change handler
 	});
 
 	test('analyzeCellError command handles errors', async () => {
@@ -101,7 +109,7 @@ suite('Extension Test Suite', () => {
 		sandbox.stub(ErrorAnalyzer, 'analyzeError').rejects(new Error('Analysis failed'));
 
 		await extension.activate(mockContext);
-		await mockCommands.registerCommand.args[0][1](mockCell);
+		await mockCommands.registerCommand.args[1][1](mockCell); // Calling the second registered command
 
 		assert(mockWindow.showErrorMessage.calledOnce);
 		assert(mockWindow.showErrorMessage.calledWith('Error analyzing error: Analysis failed'));

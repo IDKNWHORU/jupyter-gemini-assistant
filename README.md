@@ -4,13 +4,17 @@ An assistant designed to help beginners easily understand and resolve errors occ
 
 ## Features
 
-When an error occurs after running an ipynb file, the Gemini assistant provides insights into the cause of the error and suggests solutions.
+- Provides insights into the cause of errors occurring in Jupyter notebooks
+- Suggests solutions for resolving errors
+- Supports multiple languages (English and Korean)
+- Displays error analysis results in a side panel Markdown preview
 
-https://github.com/user-attachments/assets/dd20e11c-8fa4-49bd-ba98-2473f5563d4b
+![Error Analyse Button Click](https://github.com/user-attachments/assets/f35a7fb8-2cad-4403-af48-acd68881a874)
+![Show Analyse Result](https://github.com/user-attachments/assets/8abcd730-0a81-4e04-97e8-981150fa73cd)
 
 ## How to Use
 
-1. Run your code in Jupyter Notebook.
+1. Run your code in a Jupyter Notebook.
 2. If an error occurs, click the `analyse` button that appears in the cell.
 3. The Gemini Assistant will analyze the error and suggest solutions.
 4. View the detailed analysis in the new side panel Markdown preview.
@@ -29,25 +33,45 @@ Here's a visual guide to help you find the extension:
 
 ![VSCode Extension Installation](https://github.com/user-attachments/assets/967e3485-3ffe-4cb3-8a8e-c7cc7cb790b3)
 
+## Configuration
+
+You can configure the language used by the Jupyter Gemini Assistant:
+
+1. Open VS Code settings (File > Preferences > Settings)
+2. Search for "Jupyter Gemini Assistant"
+3. Choose your preferred language (English or Korean) from the dropdown menu
+
+Alternatively, you can use the command:
+
+1. Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P on macOS)
+2. Type "Select Language for Jupyter Gemini assistant" and select it
+3. Choose your preferred language from the options presented
+
 ## Release Notes
 
-### 0.1.2
+### 0.2.0 (2024-09-13)
+
+- Added language selection feature (English or Korean)
+- Improved error analysis with new `ErrorAnalyzer` class
+- Enhanced user experience with improved error handling and feedback
+
+### 0.1.2 (2024-09-05)
 
 - Fixed a bug in MarkdownContentProvider.js where 'vscode' module was not imported
 - Resolved issues related to undefined vscode object
 
-### 0.1.1
+### 0.1.1 (2024-09-05)
 
 - Changed AI analysis results output to a Markdown preview in the side panel
 - Improved user experience for viewing and interacting with analysis results
 
-### 0.1.0
+### 0.1.0 (2024-09-02)
 
 - Improved program operation
 - Added `analyse` button to cells where errors occur
 - Enhanced user experience: Easy error analysis with a button click
 
-### 0.0.1
+### 0.0.1 (2024-07-10)
 
 - Initial release of "jupyter-gemini-assistant"
 - Implemented basic error analysis functionality

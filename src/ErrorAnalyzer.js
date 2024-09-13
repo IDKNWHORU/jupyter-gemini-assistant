@@ -8,12 +8,12 @@ module.exports = class {
      * @returns {Promise<string>} The text result of the error analysis
      * @throws {Error} If the HTTP request fails or an error occurs during response processing
      */
-    static async analyzeError(errorOutput, code) {
+    static async analyzeError(errorOutput, code, language) {
         try {
-            const response = await fetch("https://gemini-server-kappa.vercel.app/generate", {
+            const response = await fetch("http://gemini-server-kappa.vercel.app/generate", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ errorOutput, code }),
+                body: JSON.stringify({ errorOutput, code, language }),
             });
 
             if (!response.ok) {
