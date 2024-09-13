@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved error analysis with `ErrorAnalyzer` class
 - New `MarkdownContentProvider` for displaying analysis results
 - Comprehensive test suite for the extension
+![output_select_language](https://github.com/user-attachments/assets/4383f5ef-3c56-4cc5-aa7f-2a32e04a7ef0)
 
 ### Changed
 - Updated extension activation events to include Jupyter notebooks
