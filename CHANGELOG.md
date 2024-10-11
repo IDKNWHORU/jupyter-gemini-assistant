@@ -4,6 +4,29 @@ All notable changes to the "Jupyter Gemini Assistant" extension will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2024-10-11
+### Added
+- Analysis state tracking in CellStatusBarItemProvider
+  - New isAnalyzing property to track ongoing analysis state
+  - setAnalyzing method to update the analysis state
+- Progress bar for error analysis process
+- Localization support with getLocalizedString function
+- Comprehensive test suites for error analysis and language support
+  - ErrorAnalyzer test suite
+  - Expanded Command Test Suite
+  - New Language Test Suite
+
+### Changed
+- Enhanced error detection and status bar item provision logic
+- Improved error handling and user feedback in extension.js
+- Updated language selection to use localized strings
+- Refined configuration change handling for language updates
+
+### Improved
+- Code documentation with JSDoc comments
+- Overall test coverage for core extension functionality
+- Mocking of VSCode API and global fetch function in tests
+
 ## [0.2.0] - 2024-09-13
 ### Added
 - New command to select language for Jupyter Gemini assistant
