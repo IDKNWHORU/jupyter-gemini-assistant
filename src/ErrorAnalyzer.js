@@ -10,7 +10,7 @@ module.exports = class {
      */
     static async analyzeError(errorOutput, code, language) {
         try {
-            const response = await fetch("http://gemini-server-kappa.vercel.app/generate", {
+            const response = await fetch("https://gemini-server-kappa.vercel.app/generate", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ errorOutput, code, language }),
