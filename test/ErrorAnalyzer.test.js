@@ -81,4 +81,32 @@ suite("ErrorAnalyzer Test Suite", () => {
             }
         );
     });
+
+    test("passes correct language parameter", async () => {
+        const mockResponse = {
+            ok: true,
+            json: () => Promise.resolve({
+                candidates: [
+                    {
+                        content: {
+                            parts: [
+                                { text: "분석 결과" }
+                            ]
+                        }
+                    }
+                ]
+            })
+        };
+
+        const fetchStub = sandbox.stub(global, "fetch").resolves(mockResponse);
+
+        await ErrorAnalyzer.analyzeError("에러 출력", "코드 텍스트", "한국어");
+
+        assert(fetchStub.calledOnce);
+        const fetchArgs = fetchStub.getCall(0).args;
+        const requestBody = JSON.parse(fetchArgs[1].body);
+        assert.strictEqual(requestBody.language, "한국어");
+        assert.strictEqual(requestBody.errorOutput, "에러 출력");
+        assert.strictEqual(requestBody.code, "코드 텍스트");
+    });
 });

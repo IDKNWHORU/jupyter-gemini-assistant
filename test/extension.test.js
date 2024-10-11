@@ -4,6 +4,7 @@ const sinon = require('sinon');
 const extension = require('../src/extension');
 const ErrorAnalyzer = require('../src/ErrorAnalyzer');
 const MarkdownContentProvider = require('../src/MarkdownContentProvider');
+const CellStatusBarItemProvider = require("../src/CellStatusBarItemProvider");
 
 suite('Extension Test Suite', () => {
 	let sandbox;
@@ -12,9 +13,14 @@ suite('Extension Test Suite', () => {
 	let mockWorkspace;
 	let mockCommands;
 	let mockWindow;
+	let mockProgressObject;
 
 	setup(() => {
 		sandbox = sinon.createSandbox();
+
+		mockProgressObject = {
+			report: sandbox.stub()
+		};
 
 		// Mock VSCode API
 		mockNotebooks = {
@@ -23,7 +29,7 @@ suite('Extension Test Suite', () => {
 		mockWorkspace = {
 			registerTextDocumentContentProvider: sandbox.stub().returns({ dispose: sandbox.stub() }),
 			getConfiguration: sandbox.stub().returns({
-				get: sandbox.stub().returns("English"),
+				get: sandbox.stub().returns('English'),
 				update: sandbox.stub().resolves()
 			}),
 			onDidChangeConfiguration: sandbox.stub().returns({ dispose: sandbox.stub() })
@@ -35,9 +41,10 @@ suite('Extension Test Suite', () => {
 		mockWindow = {
 			showErrorMessage: sandbox.stub(),
 			showInformationMessage: sandbox.stub(),
-			showQuickPick: sandbox.stub().resolves("English"),
+			showQuickPick: sandbox.stub().resolves('English'),
 			visibleTextEditors: [],
-			showTextDocument: sandbox.stub().resolves()
+			showTextDocument: sandbox.stub().resolves(),
+			withProgress: sandbox.stub().callsFake((options, task) => task(mockProgressObject))
 		};
 
 		sandbox.stub(vscode, 'notebooks').value(mockNotebooks);
@@ -72,13 +79,27 @@ suite('Extension Test Suite', () => {
 
 		sandbox.stub(ErrorAnalyzer, 'analyzeError').resolves('Analysis result');
 		const setLatestAnalysisStub = sandbox.stub(MarkdownContentProvider.prototype, 'setLatestAnalysis');
+		const setAnalyzingStub = sandbox.stub(CellStatusBarItemProvider.prototype, 'setAnalyzing');
+
+		// 프로그레스 보고 시뮬레이션을 위한 타이머 모의
+		const fakeTimer = sandbox.useFakeTimers();
 
 		await extension.activate(mockContext);
-		await mockCommands.registerCommand.args[1][1](mockCell); // Calling the second registered command
+		const analyzeCellErrorCommand = mockCommands.registerCommand.args.find(arg => arg[0] === 'jupyter.gemini.analyzeCellError')[1];
+		const commandPromise = analyzeCellErrorCommand(mockCell);
+
+		// 프로그레스 보고를 위해 타이머 진행
+		fakeTimer.tick(100);
+		await commandPromise;
 
 		assert(ErrorAnalyzer.analyzeError.calledOnce);
 		assert(setLatestAnalysisStub.calledOnce);
 		assert(mockCommands.executeCommand.calledWith('markdown.showPreviewToSide'));
+		assert(mockWindow.withProgress.calledOnce);
+		assert(setAnalyzingStub.calledTwice);  // Called with true at start and false at end
+		assert(mockProgressObject.report.called);
+
+		fakeTimer.restore();
 	});
 
 	test("selectLanguage command updates language setting", async () => {
@@ -107,11 +128,19 @@ suite('Extension Test Suite', () => {
 		};
 
 		sandbox.stub(ErrorAnalyzer, 'analyzeError').rejects(new Error('Analysis failed'));
+		const setAnalyzingStub = sandbox.stub(CellStatusBarItemProvider.prototype, 'setAnalyzing');
 
 		await extension.activate(mockContext);
-		await mockCommands.registerCommand.args[1][1](mockCell); // Calling the second registered command
+		const analyzeCellErrorCommand = mockCommands.registerCommand.args.find(arg => arg[0] === 'jupyter.gemini.analyzeCellError')[1];
+		await analyzeCellErrorCommand(mockCell);
 
-		assert(mockWindow.showErrorMessage.calledOnce);
-		assert(mockWindow.showErrorMessage.calledWith('Error analyzing error: Analysis failed'));
+		assert(mockWindow.showErrorMessage.calledOnce, 'showErrorMessage should be called once');
+
+		const actualErrorMessage = mockWindow.showErrorMessage.firstCall.args[0];
+		assert(actualErrorMessage.includes('Analysis failed'), `Error message should include 'Analysis failed', but got: ${actualErrorMessage}`);
+
+		assert(setAnalyzingStub.calledTwice, 'setAnalyzing should be called twice');
+		assert(setAnalyzingStub.firstCall.args[0] === true, 'First call to setAnalyzing should be with true');
+		assert(setAnalyzingStub.secondCall.args[0] === false, 'Second call to setAnalyzing should be with false');
 	});
 });
