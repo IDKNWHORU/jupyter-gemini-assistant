@@ -1,4 +1,10 @@
-module.exports = class {
+const vscode = require('vscode');
+
+module.exports = class CellStatusBarItemProvider {
+    constructor() {
+        this.isAnalyzing = false;
+    }
+
     provideCellStatusBarItems(cell) {
         if (this.cellHasError(cell)) {
             return [{
@@ -21,5 +27,11 @@ module.exports = class {
         return cell.outputs.some(output =>
             output.items?.some(item => item.mime === 'application/vnd.code.notebook.error')
         );
+    }
+
+    setAnalyzing(analyzing) {
+        if (this.isAnalyzing !== analyzing) {
+            this.isAnalyzing = analyzing;
+        }
     }
 };

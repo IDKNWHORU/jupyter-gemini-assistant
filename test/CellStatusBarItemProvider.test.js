@@ -70,5 +70,15 @@ suite("CellStatusBarItemProvider Test Suite", () => {
 
         const statusBarItems = provider.provideCellStatusBarItems(cellWithError);
         assert.deepStrictEqual(statusBarItems, []);
-    })
-})
+    });
+
+    test('CellStatusBarItemProvider.setAnalyzing updates isAnalyzing state', () => {
+        assert.strictEqual(provider.isAnalyzing, false);
+
+        provider.setAnalyzing(true);
+        assert.strictEqual(provider.isAnalyzing, true);
+
+        provider.setAnalyzing(false);
+        assert.strictEqual(provider.isAnalyzing, false);
+    });
+});
