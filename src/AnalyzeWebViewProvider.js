@@ -1,39 +1,51 @@
 const vscode = require("vscode");
-const ErrorAnalyzer = require("./ErrorAnalyzer");
 
 function getLocalizedString(key, language) {
   const strings = {
     title: {
       한국어: "에러 분석 결과",
       English: "Error Analysis Result",
+      日本語: "エラー分析結果",
     },
     user_info: {
       한국어: "사용자 정보",
       English: "User Info",
+      日本語: "ユーザー情報",
     },
     error_trace_back: {
       한국어: "오류 추적",
       English: "Error Trace",
+      日本語: "エラートレース",
     },
     error_code: {
       한국어: "오류 코드",
       English: "Error code",
+      日本語: "エラーコード",
     },
     assistant: {
       한국어: "해결 도우미",
       English: "Error Assistant",
+      日本語: "解決アシスタント",
     },
     loading_message: {
       한국어: "오류를 분석 중입니다... 잠시만 기다려주세요\u231B",
       English: "Analyzing error... Please wait\u231B",
+      日本語: "エラーを分析中です... しばらくお待ちください\u231B",
     },
     copy: {
       한국어: "복사",
       English: "Copy",
+      日本語: "コピー",
     },
     copied: {
       한국어: "복사됨",
       English: "Copied",
+      日本語: "コピーしました",
+    },
+    change_language: {
+      한국어: "언어가 한국어로 설정되었습니다. 다시 한번 분석을 시도해주세요.",
+      English: "Language set to English. Please try analyzing again.",
+      日本語: "言語が日本語に設定されました。もう一度分析を実行してください。",
     },
   };
   return strings[key][language] || strings[key]["English"];
@@ -77,6 +89,35 @@ function createOrUpdateWebviewPanel(
         currentPanel = undefined;
       },
       null,
+      context.subscriptions
+    );
+
+    currentPanel.webview.onDidReceiveMessage(
+      async (message) => {
+        if (message.command === "updateLanguage") {
+          const newLanguage = message.language;
+          console.log("Received language update request:", newLanguage);
+          try {
+            await vscode.workspace
+              .getConfiguration("jupyterGeminiAssistant")
+              .update(
+                "language",
+                newLanguage,
+                vscode.ConfigurationTarget.Global
+              );
+
+            if (currentPanel) {
+              vscode.window.showInformationMessage(
+                getLocalizedString("change_language", newLanguage)
+              );
+            }
+          } catch (error) {
+            console.error("Error updating language:", error);
+            vscode.window.showErrorMessage("Failed to update language.");
+          }
+        }
+      },
+      undefined,
       context.subscriptions
     );
 
@@ -146,11 +187,45 @@ function updateWebviewContent(
         .detail-code {
           margin: 1em;
         }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .language-select {
+          background: transparent;
+          color: var(--vscode-editor-foreground);
+          border: 1px solid var(--vscode-editor-foreground);
+        }
+
+        .language-select > option {
+          background: var(--vscode-editor-background);
+          color: var(--vscode-editor-foreground);
+        }
       </style>
   </head>
   <body>
       <div id="content">
-        <h2>${getLocalizedString("user_info", selectedLanguage)}</h2>
+        <header class="header">
+          <h2>${getLocalizedString("user_info", selectedLanguage)}</h2>
+          <div>
+          <span>사용 언어: </span>
+          <select class="language-select" id="language-select">
+            <option value="English" ${
+              selectedLanguage === "English" ? "selected" : ""
+            }>English</option>
+            <option value="한국어" ${
+              selectedLanguage === "한국어" ? "selected" : ""
+            }>한국어</option>
+            <option value="日本語" ${
+              selectedLanguage === "日本語" ? "selected" : ""
+            }>日本語</option>
+          </select>
+          </div>
+          
+        </header>
         <details class="details">
           <summary class="details-summary">${getLocalizedString(
             "error_trace_back",
@@ -233,6 +308,18 @@ function updateWebviewContent(
             });
             hljs.highlightAll();
           });
+      </script>
+      <script>
+          (function() {
+            const vscode = acquireVsCodeApi();
+            document.getElementById('language-select').addEventListener('change', (event) => {
+              const selectedLanguage = event.target.value;
+              vscode.postMessage({
+                command: 'updateLanguage',
+                language: selectedLanguage,
+              });
+            });
+          })();
       </script>
   </body>
   </html>`;

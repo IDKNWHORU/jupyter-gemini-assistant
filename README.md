@@ -3,6 +3,7 @@
 > This extension requires VS Code version **1.89.0** or higher to install and use.
 
 [한국어 문서](/docs/kokr/README.md)를 선호하신 다면 이 문서를 확인해보세요
+[日本語]のドキュメントをご希望の方は、[こちらの文書](/docs/ja/README.md)をご確認ください。
 
 An assistant designed to help beginners easily understand and resolve errors occurring in Jupyter notebook (.ipynb) files.
 

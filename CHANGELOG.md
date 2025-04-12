@@ -5,6 +5,17 @@ All notable changes to the "Jupyter Gemini Assistant" extension will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2025-04-12
+
+### Added
+
+- Added **Japanese (日本語)** language support for analysis results and the webview interface.
+- Integrated a language selection dropdown menu into the analysis result webview panel header, allowing users to change the language directly within the panel.
+
+### Changed
+
+- Implemented the `panel.webview.onDidReceiveMessage` handler logic to receive and process language change requests (the `updateLanguage` message) from the webview.
+
 ## [0.4.0] - 2024-11-24
 
 ### Added

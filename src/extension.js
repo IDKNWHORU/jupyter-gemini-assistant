@@ -8,14 +8,17 @@ function getLocalizedString(key, language) {
     analyzing_error: {
       한국어: "에러 분석 중...",
       English: "Analyzing error...",
+      日本語: "エラー分析中...",
     },
     error_occurred: {
       한국어: "에러 분석 중 오류 발생: ",
       English: "Error occurred during analysis: ",
+      日本語: "分析中にエラーが発生しました: ",
     },
     language_set: {
       한국어: "언어가 다음으로 설정되었습니다: ",
       English: "Language set to: ",
+      日本語: "言語が設定されました: ",
     },
   };
   return strings[key][language] || strings[key]["English"];
@@ -32,9 +35,9 @@ function activate(context) {
       "jupyter.gemini.selectLanguage",
       async () => {
         const language = await vscode.window.showQuickPick(
-          ["한국어", "English"],
+          ["한국어", "English", "日本語"],
           {
-            placeHolder: "Select a language",
+            placeHolder: "Select a language for Jupyter Gemini Assistant",
           }
         );
         if (language) {
@@ -44,6 +47,7 @@ function activate(context) {
             language,
             vscode.ConfigurationTarget.Global
           );
+
           vscode.window.showInformationMessage(
             getLocalizedString("language_set", selectedLanguage) + language
           );
