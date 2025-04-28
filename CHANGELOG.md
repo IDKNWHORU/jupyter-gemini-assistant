@@ -5,6 +5,17 @@ All notable changes to the "Jupyter Gemini Assistant" extension will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2025-04-28
+
+### Added
+
+- Added **Persian (فارسی)** language support for analysis results and the webview interface.
+- Added **Russian (Русский)** language support for analysis results and the webview interface.
+
+### Changed
+
+- Updated the Gemini model used for analysis to `gemini-2.5-flash-preview-04-17`.
+
 ## [0.5.0] - 2025-04-12
 
 ### Added

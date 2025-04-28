@@ -9,16 +9,22 @@ function getLocalizedString(key, language) {
       한국어: "에러 분석 중...",
       English: "Analyzing error...",
       日本語: "エラー分析中...",
+      Русский: "Анализ ошибки...",
+      فارسی: "در حال تحلیل خطا...",
     },
     error_occurred: {
       한국어: "에러 분석 중 오류 발생: ",
       English: "Error occurred during analysis: ",
       日本語: "分析中にエラーが発生しました: ",
+      Русский: "Произошла ошибка во время анализа: ",
+      فارسی: "خطا در حین تحلیل رخ داد: ",
     },
     language_set: {
       한국어: "언어가 다음으로 설정되었습니다: ",
       English: "Language set to: ",
       日本語: "言語が設定されました: ",
+      Русский: "Язык установлен на: ", // 또는 "Язык установлен как:"
+      فارسی: "زبان تنظیم شده به: ", // 또는 "زبان به این تغییر یافت:"
     },
   };
   return strings[key][language] || strings[key]["English"];
@@ -35,7 +41,7 @@ function activate(context) {
       "jupyter.gemini.selectLanguage",
       async () => {
         const language = await vscode.window.showQuickPick(
-          ["한국어", "English", "日本語"],
+          ["한국어", "English", "日本語", "Русский", "فارسی"],
           {
             placeHolder: "Select a language for Jupyter Gemini Assistant",
           }

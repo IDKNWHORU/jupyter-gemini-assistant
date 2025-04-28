@@ -6,48 +6,68 @@ function getLocalizedString(key, language) {
       한국어: "에러 분석 결과",
       English: "Error Analysis Result",
       日本語: "エラー分析結果",
+      Русский: "Результат анализа ошибки",
+      فارسی: "نتیجه تحلیل خطا",
     },
     user_info: {
       한국어: "사용자 정보",
       English: "User Info",
       日本語: "ユーザー情報",
+      Русский: "Информация о пользователе",
+      فارسی: "اطلاعات کاربر",
     },
     error_trace_back: {
       한국어: "오류 추적",
       English: "Error Trace",
       日本語: "エラートレース",
+      Русский: "Трассировка ошибки",
+      فارسی: "ردیابی خطا",
     },
     error_code: {
       한국어: "오류 코드",
       English: "Error code",
       日本語: "エラーコード",
+      Русский: "Код ошибки",
+      فارسی: "کد خطا",
     },
     assistant: {
       한국어: "해결 도우미",
       English: "Error Assistant",
       日本語: "解決アシスタント",
+      Русский: "Помощник по устранению ошибок",
+      فارسی: "دستیار حل خطا",
     },
     loading_message: {
       한국어: "오류를 분석 중입니다... 잠시만 기다려주세요\u231B",
       English: "Analyzing error... Please wait\u231B",
       日本語: "エラーを分析中です... しばらくお待ちください\u231B",
+      Русский: "Анализ ошибки... Пожалуйста, подождите\u231B",
+      فارسی: "در حال تجزیه و تحلیل خطا... لطفا منتظر بمانید\u231B",
     },
     copy: {
       한국어: "복사",
       English: "Copy",
       日本語: "コピー",
+      Русский: "Копировать",
+      فارسی: "کپی",
     },
     copied: {
       한국어: "복사됨",
       English: "Copied",
       日本語: "コピーしました",
+      Русский: "Скопировано",
+      فارسی: "کپی شد",
     },
     change_language: {
       한국어: "언어가 한국어로 설정되었습니다. 다시 한번 분석을 시도해주세요.",
       English: "Language set to English. Please try analyzing again.",
       日本語: "言語が日本語に設定されました。もう一度分析を実行してください。",
+      Русский:
+        "Язык установлен на Русский. Пожалуйста, попробуйте провести анализ снова.", // 또는 "Язык изменен..."
+      فارسی: "زبان به فارسی تنظیم شد. لطفا دوباره تحلیل را امتحان کنید.", // 또는 "زبان تغییر یافت..."
     },
   };
+
   return strings[key][language] || strings[key]["English"];
 }
 
@@ -222,6 +242,12 @@ function updateWebviewContent(
             <option value="日本語" ${
               selectedLanguage === "日本語" ? "selected" : ""
             }>日本語</option>
+            <option value="Русский" ${
+              selectedLanguage === "Русский" ? "selected" : ""
+            }>Русский</option>
+            <option value="فارسی" ${
+              selectedLanguage === "فارسی" ? "selected" : ""
+            }>فارسی</option>
           </select>
           </div>
           
