@@ -66,6 +66,13 @@ function getLocalizedString(key, language) {
         "Язык установлен на Русский. Пожалуйста, попробуйте провести анализ снова.", // 또는 "Язык изменен..."
       فارسی: "زبان به فارسی تنظیم شد. لطفا دوباره تحلیل را امتحان کنید.", // 또는 "زبان تغییر یافت..."
     },
+    selected_language: {
+      한국어: "선택된 언어",
+      English: "Selected Language",
+      日本語: "選択された言語",
+      Русский: "Выбранный язык",
+      فارسی: "زبان انتخاب شده",
+    },
   };
 
   return strings[key][language] || strings[key]["English"];
@@ -231,7 +238,10 @@ function updateWebviewContent(
         <header class="header">
           <h2>${getLocalizedString("user_info", selectedLanguage)}</h2>
           <div>
-          <span>사용 언어: </span>
+          <span>${getLocalizedString(
+            "selected_language",
+            selectedLanguage
+          )}: </span>
           <select class="language-select" id="language-select">
             <option value="English" ${
               selectedLanguage === "English" ? "selected" : ""

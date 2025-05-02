@@ -5,6 +5,12 @@ All notable changes to the "Jupyter Gemini Assistant" extension will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] - 2025-05-02
+
+### Changed
+
+- Localized the label "사용 언어:" within the WebView panel to respect the user's language selection.
+
 ## [0.6.0] - 2025-04-28
 
 ### Added
