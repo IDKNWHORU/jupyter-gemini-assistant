@@ -26,6 +26,13 @@ function getLocalizedString(key, language) {
       Русский: "Язык установлен на: ", // 또는 "Язык установлен как:"
       فارسی: "زبان تنظیم شده به: ", // 또는 "زبان به این تغییر یافت:"
     },
+    model_set: {
+      한국어: "모델이 다음으로 설정되었습니다: ",
+      English: "Model set to: ",
+      日本語: "モデルは次のように設定されています: ",
+      Русский: "Модель настроена на: ",
+      فارسی: "مدل تنظیم شده به: ",
+    }
   };
   return strings[key][language] || strings[key]["English"];
 }
@@ -35,6 +42,31 @@ function activate(context) {
 
   let config = vscode.workspace.getConfiguration("jupyterGeminiAssistant");
   let selectedLanguage = config.get("language");
+  let selectedModel = config.get("model");
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("jupyter.gemini.selectModel", async () => {
+      const model = await vscode.window.showQuickPick(
+        ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-2.0-flash-lite"],
+        {
+          placeHolder: "Select a model for Jupyter Gemini Assistant",
+        }
+      );
+
+      if (model) {
+        selectedModel = model;
+        await config.update(
+          "model",
+          model,
+          vscode.ConfigurationTarget.Global
+        );
+
+        vscode.window.showInformationMessage(
+          getLocalizedString("model_set", selectedLanguage) + model
+        )
+      }
+    })
+  )
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
@@ -107,20 +139,22 @@ function activate(context) {
                 errorTraceback,
                 cellCode,
                 selectedLanguage,
+                selectedModel,
                 context
               );
 
               const analysis = await ErrorAnalyzer.analyzeError(
                 errorTraceback,
                 cellCode,
-                selectedLanguage
+                selectedLanguage,
+                selectedModel
               );
 
               panel.webview.postMessage(analysis);
             } catch (error) {
               vscode.window.showErrorMessage(
                 getLocalizedString("error_occurred", selectedLanguage) +
-                  error.message
+                error.message
               );
             } finally {
               clearInterval(progressInterval);
@@ -139,11 +173,17 @@ function activate(context) {
           .getConfiguration("jupyterGeminiAssistant")
           .get("language");
       }
+
+      if (event.affectsConfiguration("jupyterGeminiAssistant.model")) {
+        selectedModel = vscode.workspace
+          .getConfiguration("jupyterGeminiAssistant")
+          .get("model");
+      }
     })
   );
 }
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
   activate,

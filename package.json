@@ -2,7 +2,7 @@
   "name": "jupyter-gemini-assistant",
   "displayName": "jupyter-gemini-assistant",
   "description": "",
-  "version": "0.6.1",
+  "version": "0.7.2",
   "publisher": "whoru",
   "repository": {
     "type": "git",
@@ -26,6 +26,10 @@
       {
         "command": "jupyter.gemini.selectLanguage",
         "title": "Select Language for Jupyter Gemini assistant"
+      },
+      {
+        "command": "jupyter.gemini.selectModel",
+        "title": "Select Model for Jupyter Gemini assistant"
       }
     ],
     "configuration": {
@@ -36,9 +40,24 @@
           "default": "English",
           "enum": [
             "English",
-            "한국어"
+            "한국어",
+            "日本語",
+            "Русский",
+            "فارسی"
           ],
           "description": "The language used for Jupyter Gemini Assistant responses"
+        },
+        "jupyterGeminiAssistant.model": {
+          "type": "string",
+          "default": "gemini-2.5-flash",
+          "enum": [
+            "gemini-2.5-pro",
+            "gemini-2.5-flash",
+            "gemini-2.5-flash-lite",
+            "gemini-2.0-flash",
+            "gemini-2.0-flash-lite"
+          ],
+          "description": "The model used for Jupyter Gemini Assistant"
         }
       }
     }
@@ -57,5 +76,8 @@
     "eslint": "^8.57.0",
     "sinon": "^18.0.1",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1"
   }
 }

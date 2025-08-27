@@ -5,6 +5,18 @@
 フォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/lang/ja/) に準拠しています。
 
+## [0.7.0] - YYYY-MM-DD
+
+### 追加
+
+- **WebViewでのGeminiモデル選択機能**: WebViewパネル内で、エラー分析に使用するGeminiモデルを直接選択できるドロップダウンメニューを追加しました。これにより、ユーザーは速度、コスト、パフォーマンスなどのニーズに応じて、希望のモデルを柔軟に選択できます。
+- **新しいモデルのサポート**: 以下のGeminiモデルリストをサポートしました：
+  - `gemini-2.0-flash`
+  - `gemini-2.0-flash-lite`
+  - `gemini-2.5-flash`
+  - `gemini-2.5-flash-lite`
+  - `gemini-2.5-pro`
+
 ## [0.6.1] - 2025-05-02
 
 ### 変更

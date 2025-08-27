@@ -73,6 +73,20 @@ function getLocalizedString(key, language) {
       Русский: "Выбранный язык",
       فارسی: "زبان انتخاب شده",
     },
+    selected_model: {
+      한국어: "선택된 모델",
+      English: "Selected Model",
+      日本語: "選択されたモデル",
+      Русский: "Выбранная модель",
+      فارسی: "مدل انتخاب شده",
+    },
+    change_model: {
+      한국어: "모델이 변경되었습니다. 다시 한번 분석을 시도해주세요.",
+      English: "Model changed. Please try analyzing again.",
+      日本語: "モデルが変更されました。もう一度分析を実行してください。",
+      Русский: "Модель изменена. Пожалуйста, попробуйте провести анализ снова.",
+      فارسی: "مدل تغییر کرد. لطفا دوباره تحلیل را امتحان کنید.",
+    }
   };
 
   return strings[key][language] || strings[key]["English"];
@@ -84,6 +98,7 @@ function createOrUpdateWebviewPanel(
   errorTraceback,
   cellCode,
   selectedLanguage,
+  selectedModel,
   context
 ) {
   const columnToShowIn = vscode.window.activeTextEditor
@@ -96,7 +111,8 @@ function createOrUpdateWebviewPanel(
       currentPanel,
       errorTraceback,
       cellCode,
-      selectedLanguage
+      selectedLanguage,
+      selectedModel
     );
     currentPanel.reveal(columnToShowIn);
   } else {
@@ -143,6 +159,29 @@ function createOrUpdateWebviewPanel(
             vscode.window.showErrorMessage("Failed to update language.");
           }
         }
+        
+        if (message.command === 'updateModel') {
+          const newModel = message.model;
+          console.log("Received model update request:", newModel);
+          try {
+            await vscode.workspace
+              .getConfiguration("jupyterGeminiAssistant")
+              .update(
+                "model",
+                newModel,
+                vscode.ConfigurationTarget.Global
+              );
+
+            if (currentPanel) {
+              vscode.window.showInformationMessage(
+                getLocalizedString("change_model", selectedLanguage) + newModel
+              );
+            }
+          } catch (error) {
+            console.error("Error updating model:", error);
+            vscode.window.showErrorMessage("Failed to update model.");
+          }
+        }
       },
       undefined,
       context.subscriptions
@@ -152,7 +191,8 @@ function createOrUpdateWebviewPanel(
       currentPanel,
       errorTraceback,
       cellCode,
-      selectedLanguage
+      selectedLanguage,
+      selectedModel
     );
   }
 
@@ -163,7 +203,8 @@ function updateWebviewContent(
   panel,
   errorTraceback,
   cellCode,
-  selectedLanguage
+  selectedLanguage,
+  selectedModel
 ) {
   const colorTheme = vscode.workspace
     .getConfiguration()
@@ -238,6 +279,27 @@ function updateWebviewContent(
         <header class="header">
           <h2>${getLocalizedString("user_info", selectedLanguage)}</h2>
           <div>
+          <span>
+          ${getLocalizedString("selected_model", selectedLanguage)}
+          </span>
+          <select class="language-select" id="model-select">
+            <option value="gemini-2.5-pro" ${
+              selectedModel === "gemini-2.5-pro" ? "selected" : ""
+            }>Gemini 2.5 Pro</option>
+            <option value="gemini-2.5-flash" ${
+              selectedModel === "gemini-2.5-flash" ? "selected" : ""
+            }>Gemini 2.5 Flash</option>
+            <option value="gemini-2.5-flash-lite" ${
+              selectedModel === "gemini-2.5-flash-lite" ? "selected" : ""
+            }>Gemini 2.5 Flash Lite</option>
+            <option value="gemini-2.0-flash" ${
+              selectedModel === "gemini-2.0-flash" ? "selected" : ""
+            }>Gemini 2.0 Flash</option>
+            <option value="gemini-2.0-flash-lite" ${
+              selectedModel === "gemini-2.0-flash-lite" ? "selected" : ""
+            }>Gemini 2.0 Flash Lite</option>
+          </select>
+          <span> | </span>
           <span>${getLocalizedString(
             "selected_language",
             selectedLanguage
@@ -348,6 +410,15 @@ function updateWebviewContent(
       <script>
           (function() {
             const vscode = acquireVsCodeApi();
+
+            document.getElementById('model-select').addEventListener('change', (event) => {
+              const selectedModel = event.target.value;
+              vscode.postMessage({
+                command: 'updateModel',
+                model: selectedModel,
+              });
+            });
+            
             document.getElementById('language-select').addEventListener('change', (event) => {
               const selectedLanguage = event.target.value;
               vscode.postMessage({

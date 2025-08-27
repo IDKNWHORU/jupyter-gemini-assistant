@@ -5,6 +5,18 @@ All notable changes to the "Jupyter Gemini Assistant" extension will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2025-08-27
+
+### Added
+
+- **Gemini Model Selection in WebView**: Implemented a dropdown menu in the WebView panel that allows users to directly select the Gemini model for error analysis. This enables users to flexibly choose a model based on their needs for speed, cost, or performance.
+- **New Model Support**: Added support for the following list of Gemini models:
+  - `gemini-2.0-flash`
+  - `gemini-2.0-flash-lite`
+  - `gemini-2.5-flash`
+  - `gemini-2.5-flash-lite`
+  - `gemini-2.5-pro`
+
 ## [0.6.1] - 2025-05-02
 
 ### Changed

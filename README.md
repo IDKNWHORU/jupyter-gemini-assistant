@@ -14,18 +14,19 @@ An assistant designed to help beginners easily understand and resolve errors occ
 
 - Provides insights into the cause of errors occurring in Jupyter notebooks
 - Suggests solutions for resolving errors
-- Supports multiple languages (English and Korean)
+- **Gemini Model Selection:** A feature to directly select the AI model for analysis based on your needs.
+- **Multi-language Support:** Supports multiple languages (English, Korean, Japanese, Persian and Russian.)
 - Displays error analysis results in a side panel
 
 ![Error Analyse Button Click](https://github.com/user-attachments/assets/f35a7fb8-2cad-4403-af48-acd68881a874)
-![Show Analyse Result](https://github.com/user-attachments/assets/5eea670f-cd52-4673-85e4-c10ff70c5310)
+![Show Analyse Result](https://github.com/user-attachments/assets/04db91e6-8530-4914-a0ad-db4461f67c81)
 
 ## How to Use
 
 1. Run your code in a Jupyter Notebook.
 2. If an error occurs, click the `analyse` button that appears in the cell.
 3. The Gemini Assistant will analyze the error and suggest solutions.
-4. View the detailed analysis results in the side panel.
+4. View the detailed analysis results in the side panel and, if needed, **you can re-analyze by selecting a different Gemini model from the dropdown menu**.
 
 ## Installation
 
