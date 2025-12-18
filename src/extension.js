@@ -47,7 +47,9 @@ function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand("jupyter.gemini.selectModel", async () => {
       const model = await vscode.window.showQuickPick(
-        ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-2.0-flash-lite"],
+        ["gemini-3-flash-preview",
+          "gemini-flash-latest",
+          "gemini-flash-lite-latest"],
         {
           placeHolder: "Select a model for Jupyter Gemini Assistant",
         }

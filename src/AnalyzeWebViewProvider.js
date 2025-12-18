@@ -283,21 +283,15 @@ function updateWebviewContent(
           ${getLocalizedString("selected_model", selectedLanguage)}
           </span>
           <select class="language-select" id="model-select">
-            <option value="gemini-2.5-pro" ${
-              selectedModel === "gemini-2.5-pro" ? "selected" : ""
-            }>Gemini 2.5 Pro</option>
-            <option value="gemini-2.5-flash" ${
-              selectedModel === "gemini-2.5-flash" ? "selected" : ""
-            }>Gemini 2.5 Flash</option>
-            <option value="gemini-2.5-flash-lite" ${
-              selectedModel === "gemini-2.5-flash-lite" ? "selected" : ""
-            }>Gemini 2.5 Flash Lite</option>
-            <option value="gemini-2.0-flash" ${
-              selectedModel === "gemini-2.0-flash" ? "selected" : ""
-            }>Gemini 2.0 Flash</option>
-            <option value="gemini-2.0-flash-lite" ${
-              selectedModel === "gemini-2.0-flash-lite" ? "selected" : ""
-            }>Gemini 2.0 Flash Lite</option>
+            <option value="gemini-3-flash-preview" ${
+              selectedModel === "gemini-3-flash-preview" ? "selected" : ""
+            }>Gemini 3 Flash Preview</option>
+            <option value="gemini-flash-latest" ${
+              selectedModel === "gemini-flash-latest" ? "selected" : ""
+            }>Gemini Flash Latest</option>
+            <option value="gemini-flash-lite-latest" ${
+              selectedModel === "gemini-flash-lite-latest" ? "selected" : ""
+            }>Gemini Flash Lite Latest</option>
           </select>
           <span> | </span>
           <span>${getLocalizedString(

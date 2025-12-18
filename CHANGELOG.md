@@ -5,6 +5,15 @@ All notable changes to the "Jupyter Gemini Assistant" extension will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2025-12-18
+
+### Added
+- **Error message for quota issues**: An error message stating "Quota exceeded! Change model!" will now appear when quota limits are reached.
+
+### Changed
+- Removed the Gemini Pro model from supported models due to frequent quota issues.
+- Removed deprecated models that are no longer supported by the API.
+
 ## [0.7.0] - 2025-08-27
 
 ### Added

@@ -2,6 +2,10 @@ const path = require('path');
 // 프로젝트 루트 폴더에 있는 .env 파일의 절대 경로를 계산하여 로드합니다.
 const result = require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
 
+const ErrorCode = {
+    Quota: 'code: 429'
+}
+
 // (선택 사항) 로드가 실패했는지 확인하여 디버깅에 활용할 수 있습니다.
 if (result.error) {
     console.error("Error loading .env file:", result.error);
@@ -32,7 +36,13 @@ module.exports = class {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const { error, details } = await response.json();
+
+                if (details.includes(ErrorCode.Quota)) {
+                    throw new Error(`Quota exceeded! Change model`);
+                }
+
+                throw new Error(`${error}, ${details}`);
             }
 
             const data = await response.json();
